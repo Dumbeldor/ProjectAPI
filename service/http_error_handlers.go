@@ -2,7 +2,7 @@ package service
 
 import (
 	"github.com/labstack/echo"
-	"github.com/Dumbeldor/easyhttp"
+	"gitlab.com/projetAPI/easyhttp"
 	"net/http"
 )
 

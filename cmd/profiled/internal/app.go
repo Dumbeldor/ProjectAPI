@@ -2,7 +2,7 @@ package internal
 
 import (
 	"gitlab.com/projetAPI/auth"
-	"github.com/Dumbeldor/ProjetAPI/service"
+	"gitlab.com/projetAPI/ProjetAPI/service"
 )
 
 var app *service.App
