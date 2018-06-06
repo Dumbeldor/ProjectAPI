@@ -21,7 +21,7 @@ func StartApp(configFile string) {
 	gconfig.load(configFile)
 
 	app = service.New(
-		"uc-profile",
+		"glizou-user",
 		&gconfig.HTTP,
 		&gconfig.Log,
 		AppVersion,
@@ -35,11 +35,11 @@ func StartApp(configFile string) {
 }
 
 func startCallback() {
-	verifyProfileDB()
+	verifyUserDB()
 
 	sessionReader = auth.NewReader(gconfig.Redis)
 
-	app.Echo.POST("/v1/profile/register", httpRegister)
-	app.Echo.GET("/v1/profile/user/:uuid", httpGetUser)
-	app.Echo.PUT("/v1/profile/user/:uuid", httpModifyUser)
+	app.Echo.POST("/v1/user/register", httpRegister)
+	//app.Echo.GET("/v1/user/user/:uuid", httpGetUser)
+	//app.Echo.PUT("/v1/user/user/:uuid", httpModifyUser)
 }

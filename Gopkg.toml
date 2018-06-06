@@ -45,6 +45,18 @@
   branch = "master"
   name = "gitlab.com/projetAPI/easyhttp"
 
+[[constraint]]
+  name = "gopkg.in/yaml.v2"
+  version = "v2.2.1"
+
+[[constraint]]
+  name = "github.com/stretchr/testify"
+  version = "1.2.1"
+
+[[constraint]]
+  name = "github.com/asaskevich/govalidator"
+  version = "v9"
+
 [prune]
   go-tests = true
   unused-packages = true

@@ -11,7 +11,7 @@ type UsersDB struct {
 	config *UsersDBConfig
 }
 
-func NewUser(log *logging.Logger, config *UsersDBConfig) *UsersDB {
+func NewUserDB(log *logging.Logger, config *UsersDBConfig) *UsersDB {
 	db := &UsersDB{
 		log: log,
 	}

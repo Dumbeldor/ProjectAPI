@@ -3,10 +3,10 @@ package main
 import (
 	"net/http"
 
+	"encoding/json"
+	"fmt"
 	"github.com/labstack/echo"
 	"io/ioutil"
-	"fmt"
-	"encoding/json"
 )
 
 type resAircraft struct {
@@ -25,7 +25,7 @@ func main() {
 
 		fmt.Printf("url : %s", url)
 
-		response, err :=http.Get(url)
+		response, err := http.Get(url)
 		if err != nil {
 			e.Logger.Fatalf("Erreur : %s", err)
 			return c.String(http.StatusInternalServerError, "Erreur Interne")
@@ -46,7 +46,7 @@ func main() {
 		feed := feeds[0].(map[string]interface{})
 		id := feed["name"].(string)
 		//id := feed[0].(float64)
- 		fmt.Println(id)
+		fmt.Println(id)
 
 		//acLists := dat["acList"].([]interface{})
 		//for

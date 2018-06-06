@@ -16,7 +16,7 @@ package main
 import (
 	"fmt"
 	"github.com/pborman/getopt/v2"
-	"gitlab.com/projetAPI/ProjetAPI/cmd/profiled/internal"
+	"gitlab.com/projetAPI/ProjetAPI/cmd/userd/internal"
 )
 
 var configFile = ""
