@@ -15,7 +15,7 @@ func validateEmail(email string) error {
 
 func validatePassword(password string) error {
 	if len(password) < 8 {
-		return fmt.Errorf("8 characters is the minimul password length")
+		return fmt.Errorf("8 characters is the minimal password length")
 	}
 
 	return nil

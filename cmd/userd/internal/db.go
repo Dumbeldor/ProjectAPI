@@ -1,8 +1,8 @@
 package internal
 
 import (
-	"gitlab.com/projetAPI/ProjetAPI/db"
 	_ "github.com/lib/pq" // pq requires blank import
+	"gitlab.com/projetAPI/ProjetAPI/db"
 )
 
 var gUserDB *db.UsersDB

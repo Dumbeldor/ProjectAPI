@@ -1,19 +1,19 @@
 package internal
 
 import (
-	"gitlab.com/projetAPI/auth"
-	"gitlab.com/projetAPI/ProjetAPI/service"
 	"fmt"
-	"io/ioutil"
-	"gopkg.in/yaml.v2"
 	"gitlab.com/projetAPI/ProjetAPI/db"
+	"gitlab.com/projetAPI/ProjetAPI/service"
+	"gitlab.com/projetAPI/auth"
+	"gopkg.in/yaml.v2"
+	"io/ioutil"
 )
 
 type config struct {
 	UsersDB db.UsersDBConfig `yaml:"usersdb"`
-	Redis auth.RedisConfig
-	HTTP service.HTTPConfig `yaml:"http"`
-	Log service.LogConfig `yaml:"log"`
+	Redis   auth.RedisConfig
+	HTTP    service.HTTPConfig `yaml:"http"`
+	Log     service.LogConfig  `yaml:"log"`
 }
 
 var gconfig config

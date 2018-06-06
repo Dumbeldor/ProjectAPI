@@ -7,9 +7,9 @@ import (
 
 // swagger:parameters registerRequest
 type registerRequest struct {
-	Login string `json:"login"`
+	Login    string `json:"login"`
 	Password string `json:"password"`
-	Email string `json:"email"`
+	Email    string `json:"email"`
 }
 
 func (r *registerRequest) Validate() error {

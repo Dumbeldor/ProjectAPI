@@ -1,8 +1,8 @@
 package internal
 
 import (
-	"gitlab.com/projetAPI/auth"
 	"gitlab.com/projetAPI/ProjetAPI/service"
+	"gitlab.com/projetAPI/auth"
 )
 
 var app *service.App

@@ -3,7 +3,7 @@ package internal
 import "testing"
 
 func TestAuthRequest_Validate(t *testing.T) {
-	arTest := registerRequest{Login: "", Email: "vincent.glize@google.inc", Password: "testttttt"}
+	arTest := registerRequest{Login: "", Email: "vincent.glize@live.fr", Password: "testttttt"}
 	if arTest.Validate() == nil {
 		t.Error("expected not nil")
 	}
@@ -26,7 +26,7 @@ func TestAuthRequest_Validate(t *testing.T) {
 	}
 
 	charactersAllow := "a-z A-Z 0-9 _ -"
-	arTest.Login = "azerhjklmnbvcxw_-."
+	arTest.Login = "azerhjklmnbvcxw_-"
 	arTest.Password = "klsdfjklsdkfsdjk45645"
 	if arTest.Validate() != nil {
 		t.Errorf("expected Login is invalid. Characters allows : %s", charactersAllow)
@@ -71,9 +71,8 @@ func TestAuthRequest_Validate(t *testing.T) {
 		t.Error("Validate email invalid")
 	}
 
-	arTest.Email = "vincent.glize@google.inc"
+	arTest.Email = "vincent.glize@live.fr"
 	if arTest.Validate() != nil {
 		t.Errorf("Validate email invalid")
 	}
 }
-
