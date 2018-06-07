@@ -29,9 +29,7 @@ func httpRegister(c echo.Context) error {
 	}
 
 	if err := rreq.Validate(); err != nil {
-		var er easyhttp.ErrorResponse
-		er.Body.Message = err.Error()
-		return easyhttp.WriteJSONError(c, app.Log, http.StatusNotAcceptable, er.Body, err.Error())
+		return app.Error(c, http.StatusNotAcceptable, err.Error())
 	}
 
 	loginExist, err := gUserDB.LoginExists(rreq.Login)
@@ -40,9 +38,7 @@ func httpRegister(c echo.Context) error {
 	}
 
 	if loginExist {
-		var er easyhttp.ErrorResponse
-		er.Body.Message = "Login already taken."
-		return easyhttp.WriteJSONError(c, app.Log, http.StatusConflict, er.Body, "")
+		return app.Error(c, http.StatusConflict, "Login already taken.")
 	}
 
 	emailExists, err := gUserDB.EmailExists(rreq.Email)
@@ -51,9 +47,7 @@ func httpRegister(c echo.Context) error {
 	}
 
 	if emailExists {
-		var er easyhttp.ErrorResponse
-		er.Body.Message = "Email already taken."
-		return easyhttp.WriteJSONError(c, app.Log, http.StatusConflict, er.Body, "")
+		return app.Error(c, http.StatusConflict, "Email already taken.")
 	}
 
 	salt1, salt2 := generateSalt()

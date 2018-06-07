@@ -70,3 +70,9 @@ func TestRegisterPost_Validate(t *testing.T) {
 func TestRegisterPostLoginAlreadyTaken_Validate(t *testing.T) {
 	createRequestRegister(t, userJSON, http.StatusConflict, `{"message":"Login already taken."}`)
 }
+
+func TestRegisterPostEmailAlreadyTaken_Validate(t *testing.T) {
+	userJSONInvalide := `{"login":"test_tu2", "email":"vincent@live.fr", "password":"test12345"}`
+
+	createRequestRegister(t, userJSONInvalide, http.StatusConflict, `{"message":"Email already taken."}`)
+}
