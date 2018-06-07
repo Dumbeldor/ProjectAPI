@@ -4,14 +4,13 @@ import (
 	"fmt"
 	"gitlab.com/projetAPI/ProjetAPI/db"
 	"gitlab.com/projetAPI/ProjetAPI/service"
-	"gitlab.com/projetAPI/auth"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 )
 
 type config struct {
 	UsersDB db.UsersDBConfig `yaml:"usersdb"`
-	Redis   auth.RedisConfig
+	Redis   service.RedisConfig
 	HTTP    service.HTTPConfig `yaml:"http"`
 	Log     service.LogConfig  `yaml:"log"`
 }

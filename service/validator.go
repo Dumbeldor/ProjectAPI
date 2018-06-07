@@ -9,7 +9,7 @@ import (
 
 // ValidateSession validate session from http echo.Context
 // return Session object and nil error on success
-func ValidateSession(c echo.Context, readerInterface ReaderInterface) (*Session, error) {
+func (app *App) ValidateSession(c echo.Context, readerInterface ReaderInterface) (*Session, error) {
 	jwtHeader, errResp, httpstatus := easyhttp.GetJWTAuthHeader(c.Request())
 	if errResp != nil {
 		return nil, c.JSON(httpstatus, errResp.Body)
@@ -18,7 +18,7 @@ func ValidateSession(c echo.Context, readerInterface ReaderInterface) (*Session,
 	if readerInterface == nil {
 		var er easyhttp.ErrorResponse
 		er.Body.Message = "Critical server error."
-		return nil, easyhttp.WriteJSONError(c, log, http.StatusInternalServerError, er.Body,
+		return nil, easyhttp.WriteJSONError(c, app.Log, http.StatusInternalServerError, er.Body,
 			"Fail to instantiate SessionReader")
 	}
 
@@ -32,7 +32,7 @@ func ValidateSession(c echo.Context, readerInterface ReaderInterface) (*Session,
 		}
 		var er easyhttp.ErrorResponse
 		er.Body.Message = "Authorization failed."
-		return nil, easyhttp.WriteJSONError(c, log, http.StatusForbidden, er.Body,
+		return nil, easyhttp.WriteJSONError(c, app.Log, http.StatusForbidden, er.Body,
 			errorMsg)
 	}
 

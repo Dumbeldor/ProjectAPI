@@ -26,8 +26,24 @@
 
 
 [[constraint]]
+  name = "github.com/asaskevich/govalidator"
+  version = "9.0.0"
+
+[[constraint]]
+  name = "github.com/dgrijalva/jwt-go"
+  version = "3.2.0"
+
+[[constraint]]
+  name = "github.com/go-redis/redis"
+  version = "6.12.0"
+
+[[constraint]]
   name = "github.com/labstack/echo"
   version = "3.3.5"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/lib/pq"
 
 [[constraint]]
   name = "github.com/op/go-logging"
@@ -38,7 +54,11 @@
   name = "github.com/pborman/getopt"
 
 [[constraint]]
-  name = "gitlab.com/projetAPI/auth"
+  name = "github.com/satori/go.uuid"
+  version = "1.2.0"
+
+[[constraint]]
+  name = "github.com/stretchr/testify"
   version = "1.2.1"
 
 [[constraint]]
@@ -47,15 +67,7 @@
 
 [[constraint]]
   name = "gopkg.in/yaml.v2"
-  version = "v2.2.1"
-
-[[constraint]]
-  name = "github.com/stretchr/testify"
-  version = "1.2.1"
-
-[[constraint]]
-  name = "github.com/asaskevich/govalidator"
-  version = "v9"
+  version = "2.2.1"
 
 [prune]
   go-tests = true

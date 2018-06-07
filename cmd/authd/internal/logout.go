@@ -5,7 +5,6 @@ package internal
 import (
 	"github.com/labstack/echo"
 	"net/http"
-	"gitlab.com/projetAPI/ProjetAPI/service"
 )
 
 // swagger:response sessionRemovalResponse
@@ -31,7 +30,7 @@ func httpAuthLogout(c echo.Context) error {
 	if sessionReader == nil {
 		return app.Error500(c, &echo.HTTPError{Message: "Failed to instantiate sessionWriter"})
 	}
-	userSess, err := service.ValidateSession(c, sessionReader)
+	userSess, err := app.ValidateSession(c, sessionReader)
 	if userSess == nil {
 		return err
 	}

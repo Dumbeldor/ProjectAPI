@@ -1,13 +1,13 @@
 package mock
 
 import (
-	"gitlab.com/projetAPI/auth"
 	"fmt"
+	"gitlab.com/projetAPI/ProjetAPI/service"
 )
 
 // SessionManagerMock mock session reader & writer
 type SessionManagerMock struct {
-	sessions map[string]*auth.Session
+	sessions map[string]*service.Session
 }
 
 var sessionMock *SessionManagerMock
@@ -16,14 +16,14 @@ var sessionMock *SessionManagerMock
 func NewSessionMock() *SessionManagerMock {
 	if sessionMock == nil {
 		sessionMock = &SessionManagerMock{}
-		sessionMock.sessions = make(map[string]*auth.Session)
+		sessionMock.sessions = make(map[string]*service.Session)
 		return sessionMock
 	}
 	return sessionMock
 }
 
 // LoadSession load session for userID
-func (sm *SessionManagerMock) LoadSession(userID string) *auth.Session {
+func (sm *SessionManagerMock) LoadSession(userID string) *service.Session {
 	if sess, ok := sm.sessions[userID]; ok {
 		sess.UserID = userID
 		return sess
@@ -33,7 +33,7 @@ func (sm *SessionManagerMock) LoadSession(userID string) *auth.Session {
 }
 
 // LoadValidSessionFromJWT retrieve session for JWT token
-func (sm *SessionManagerMock) LoadValidSessionFromJWT(tokenString string) (*auth.Session, error) {
+func (sm *SessionManagerMock) LoadValidSessionFromJWT(tokenString string) (*service.Session, error) {
 	// @TODO
 	session := sessionMock.LoadSession(tokenString)
 	if session == nil {
@@ -44,7 +44,7 @@ func (sm *SessionManagerMock) LoadValidSessionFromJWT(tokenString string) (*auth
 
 // Write create session from userID and token
 func (sm *SessionManagerMock) Write(userID string, tokenSecret string) bool {
-	sm.sessions[userID] = &auth.Session{Secret: tokenSecret }
+	sm.sessions[userID] = &service.Session{Secret: tokenSecret }
 	return true
 }
 

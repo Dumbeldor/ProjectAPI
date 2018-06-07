@@ -2,7 +2,6 @@ package internal
 
 import (
 	"gitlab.com/projetAPI/ProjetAPI/service"
-	"gitlab.com/projetAPI/auth"
 )
 
 var app *service.App
@@ -13,7 +12,7 @@ var AppVersion = "[unk]"
 // AppBuildDate application build date
 var AppBuildDate = "[unk]"
 
-var sessionReader auth.ReaderInterface
+var sessionReader service.ReaderInterface
 
 // StartApp initiate components
 // Should be called from main function
@@ -37,7 +36,7 @@ func StartApp(configFile string) {
 func startCallback() {
 	verifyUserDB()
 
-	sessionReader = auth.NewReader(gconfig.Redis)
+	sessionReader = service.NewReader(gconfig.Redis)
 
 	app.Echo.POST("/v1/user/register", httpRegister)
 	//app.Echo.GET("/v1/user/user/:uuid", httpGetUser)

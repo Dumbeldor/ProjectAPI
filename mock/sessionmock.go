@@ -1,8 +1,8 @@
 package mock
 
 import (
-	"gitlab.com/projetAPI/auth"
 	"github.com/op/go-logging"
+	"gitlab.com/projetAPI/ProjetAPI/service"
 )
 
 const (
@@ -11,7 +11,7 @@ const (
 )
 
 // InsertSession use for mock session reader
-func InsertSession(sessionWriter auth.WriterInterface, log *logging.Logger) {
+func InsertSession(sessionWriter service.WriterInterface, log *logging.Logger) {
 	if sessionWriter == nil {
 		log.Fatal("sessionWriter nil")
 	}

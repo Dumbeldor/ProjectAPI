@@ -2,11 +2,11 @@ package internal
 
 import (
 	"github.com/labstack/echo"
-	"gitlab.com/projetAPI/auth"
 	"gitlab.com/projetAPI/easyhttp"
 	"math/rand"
 	"net/http"
 	"time"
+	"gitlab.com/projetAPI/ProjetAPI/service"
 )
 
 const (
@@ -58,7 +58,7 @@ func httpRegister(c echo.Context) error {
 
 	salt1, salt2 := generateSalt()
 
-	encodedPassword := auth.EncodePassword(rreq.Login, rreq.Password, salt1, salt2)
+	encodedPassword := service.EncodePassword(rreq.Login, rreq.Password, salt1, salt2)
 	if encodedPassword == "" {
 		return app.Error500(c, &echo.HTTPError{Message: "Unable to encode password."})
 	}
@@ -75,7 +75,7 @@ func httpRegister(c echo.Context) error {
 
 func generateSalt() (string, string) {
 	rand.Seed(time.Now().UnixNano())
-	salt1 := auth.GenerateSalt(pwSaltBytes)
-	salt2 := auth.GenerateSalt(pwSaltBytes)
+	salt1 := service.GenerateSalt(pwSaltBytes)
+	salt2 := service.GenerateSalt(pwSaltBytes)
 	return salt1, salt2
 }
