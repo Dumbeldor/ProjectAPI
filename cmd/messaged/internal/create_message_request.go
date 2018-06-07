@@ -16,4 +16,5 @@ func (cmr *createMessageRequest) Validate() error {
 		return fmt.Errorf("Please make your message shorter. We've set the limit at 2,000 characters to be courteous to others")
 	}
 
+	return nil
 }
