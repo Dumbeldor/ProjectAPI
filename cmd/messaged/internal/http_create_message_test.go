@@ -7,17 +7,20 @@ import (
 	"strings"
 	"gitlab.com/projetAPI/easyhttp"
 	"github.com/stretchr/testify/assert"
+	"fmt"
+	"gitlab.com/projetAPI/ProjetAPI/mock"
 )
 
 var (
 	messageJSON = `{"message":"Unit test message", "user_sender_id":"kdjfskfdlkfdl", "user_receiver_id": "fsdkfsdjfsd"}`
 )
 
-func createRequestCreateMessage(t *testing.T, messageJ string, code int, msg string) {
+func createRequestCreateMessage(t *testing.T, messageJ string, token string, code int, msg string) {
 	e := echo.New()
 	req := httptest.NewRequest(echo.POST, "/v1/message/create", strings.NewReader(messageJ))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 
+	req.Header.Set(echo.HeaderAuthorization, fmt.Sprintf("Bearer %s", token))
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
 
@@ -33,5 +36,5 @@ func createRequestCreateMessage(t *testing.T, messageJ string, code int, msg str
 }
 
 func TestCreateMessage_Validate(t *testing.T) {
-	createRequestCreateMessage(t, messageJSON, 200, `{"message":"Send successful message."}`)
+	createRequestCreateMessage(t, messageJSON, mock.TokenString, 200, `{"message":"Send successful message."}`)
 }

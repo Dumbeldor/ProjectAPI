@@ -16,12 +16,27 @@ import (
 //    409: ErrorResponse
 //    500: ErrorResponse
 func httpCreateMessage(c echo.Context) error {
+	var cmreq createMessageRequest
+	if !easyhttp.ReadJsonRequest(c.Request().Body, &cmreq) {
+		return app.Error400(c, "Request body is not a JSON.")
+	}
+
+	if err := cmreq.Validate(); err != nil {
+		return app.Error(c, http.StatusNotAcceptable, err.Error())
+	}
+
 	userSess, err := app.ValidateSession(c, sessionReader)
-	if err != nil {
+	if err != nil || userSess == nil {
 		return err
 	}
-	if userSess == nil {
-		return app.Error500String(c, "Error retrieving session")
+
+	userExist, err := gUserDB.LoginExists(cmreq.NameReceiver)
+	if err != nil {
+		return app.Error500(c, err)
+	}
+
+	if userExist {
+		return app.Error(c, http.StatusConflict, "")
 	}
 
 	var msg easyhttp.MessageResponse

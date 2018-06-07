@@ -5,7 +5,7 @@ import "fmt"
 // swagger:parameters createMessageRequest
 type createMessageRequest struct {
 	Message string `json:"message"`
-	Receiver string `json:"receiver"`
+	NameReceiver string `json:"receiver"`
 }
 
 func (cmr *createMessageRequest) Validate() error {

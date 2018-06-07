@@ -7,10 +7,12 @@ import (
 	"gitlab.com/projetAPI/ProjetAPI/db"
 	_ "github.com/lib/pq"
 	"os"
+	"gitlab.com/projetAPI/ProjetAPI/mock"
 )
 
 var (
 	configFile = ""
+	sessionWriter service.WriterInterface
 )
 
 func init() {
@@ -38,7 +40,21 @@ func TestMain(m *testing.M) {
 		app.Log.Fatalf("Critical server error. Can't connect to user database")
 	}
 
+	createSessionWriter()
+
+	createSessionReader()
+
+	mock.InsertSession(sessionWriter, app.Log)
+
 	code := m.Run()
 
 	os.Exit(code)
+}
+
+func createSessionWriter() {
+	sessionWriter = mock.NewSessionMock()
+}
+
+func createSessionReader() {
+	sessionReader = mock.NewSessionMock()
 }
