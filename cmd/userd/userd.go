@@ -1,6 +1,6 @@
 // main Package
 //     Schemes: https
-//     Host: minegame.fr
+//     Host: localhost
 //     BasePath: /
 //     Version: 1.0
 //     License: Proprietary
