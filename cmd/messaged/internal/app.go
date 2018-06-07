@@ -45,7 +45,8 @@ func startCallback() {
 
 	sessionReader = service.NewReader(gconfig.Redis)
 
-	app.Echo.POST("/v1/user/register", httpRegister)
+	app.Echo.POST("/v1/message/create", httpCreateMessage)
 	//app.Echo.GET("/v1/user/user/:uuid", httpGetUser)
 	//app.Echo.PUT("/v1/user/user/:uuid", httpModifyUser)
 }
+

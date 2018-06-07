@@ -1,0 +1,39 @@
+// main Package
+//     Schemes: https
+//     Host: localhost
+//     BasePath: /
+//     Version: 1.0
+//     License: Proprietary
+//     Contact: Support<vincent.glize@live.fr> https://minegame.fr
+//
+//     Consumes:
+//     - application/json
+//     Produces:
+//     - application/json
+// swagger:meta
+package main
+
+import (
+	"github.com/pborman/getopt/v2"
+	"fmt"
+	"gitlab.com/projetAPI/ProjetAPI/cmd/messaged/internal"
+)
+
+var configFile = ""
+var showVersion bool
+
+func init() {
+	getopt.FlagLong(&configFile, "config", 'c', "Configuration file")
+	getopt.FlagLong(&showVersion, "version", 'V', "Show application version")
+}
+
+func main() {
+	getopt.Parse()
+
+	if showVersion {
+		fmt.Printf("version: %s\nbuild date: %s\n", internal.AppVersion, internal.AppBuildDate)
+		return
+	}
+
+	internal.StartApp(configFile)
+}

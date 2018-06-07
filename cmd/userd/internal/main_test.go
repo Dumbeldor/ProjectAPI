@@ -5,6 +5,8 @@ import (
 	"gitlab.com/projetAPI/ProjetAPI/service"
 	"os"
 	"testing"
+	"gitlab.com/projetAPI/ProjetAPI/db"
+	_ "github.com/lib/pq"
 )
 
 const (
@@ -39,7 +41,9 @@ func TestMain(m *testing.M) {
 		AppVersion,
 		AppBuildDate)
 
-	if !verifyUserDB() {
+	verifUserDB := false
+	gUserDB, verifUserDB = db.VerifyUserDB(gUserDB, app.Log, &gconfig.UsersDB)
+	if !verifUserDB {
 		app.Log.Fatalf("Critical server error. Can't connect to user database")
 	}
 

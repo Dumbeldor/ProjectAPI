@@ -11,6 +11,17 @@ type UsersDB struct {
 	config   *UsersDBConfig
 }
 
+func VerifyUserDB(db *UsersDB, log *logging.Logger, config *UsersDBConfig) (*UsersDB, bool) {
+	if db == nil {
+		db = NewUserDB(log, config)
+		if db == nil {
+			return db, false
+		}
+	}
+
+	return db, db.ValidationQuery()
+}
+
 func NewUserDB(log *logging.Logger, config *UsersDBConfig) *UsersDB {
 	db := &UsersDB{
 		log: log,
