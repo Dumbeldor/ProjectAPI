@@ -3,4 +3,6 @@ vendor/
 Gopkg.lock
 config.yml
 cmd/userd/user.yml
+cmd/userd/swagger.json
 cmd/authd/auth.yml
+cmd/authd/swagger.json

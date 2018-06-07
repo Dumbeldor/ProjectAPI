@@ -1,0 +1,134 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "main Package",
+    "contact": {
+      "name": "Support",
+      "url": "https://minegame.fr",
+      "email": "vincent.glize@live.fr"
+    },
+    "license": {
+      "name": "Proprietary"
+    },
+    "version": "1.0"
+  },
+  "host": "localhost",
+  "basePath": "/",
+  "paths": {
+    "/v1/user/register": {
+      "post": {
+        "description": "Handler to register",
+        "tags": [
+          "user"
+        ],
+        "operationId": "registerRequest",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Login",
+            "name": "login",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "x-go-name": "Password",
+            "name": "password",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "x-go-name": "Email",
+            "name": "email",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/MessageResponse"
+          },
+          "400": {
+            "$ref": "#/responses/ErrorResponse"
+          },
+          "409": {
+            "$ref": "#/responses/ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      }
+    },
+    "/v1/version": {
+      "post": {
+        "description": "Handler to get version",
+        "operationId": "version",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/versionResponse"
+          }
+        }
+      }
+    }
+  },
+  "responses": {
+    "ErrorResponse": {
+      "schema": {
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "description": "Error message",
+            "type": "string",
+            "x-go-name": "Message"
+          }
+        }
+      }
+    },
+    "MessageResponse": {
+      "schema": {
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "description": "Message",
+            "type": "string",
+            "x-go-name": "Message"
+          }
+        }
+      }
+    },
+    "versionResponse": {
+      "schema": {
+        "type": "object",
+        "required": [
+          "version"
+        ],
+        "properties": {
+          "build_date": {
+            "description": "Service build date",
+            "type": "string",
+            "x-go-name": "BuildDate"
+          },
+          "version": {
+            "description": "Service version",
+            "type": "string",
+            "x-go-name": "Version"
+          }
+        }
+      }
+    }
+  }
+}
