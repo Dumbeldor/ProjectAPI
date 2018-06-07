@@ -1,0 +1,12 @@
+usersdb:
+  url: "host=postgres dbname=projetapi user=user password=user"
+  max-open-conns: 10
+  max-idle-conns: 5
+redis:
+  host: ""
+  port: 6379
+  password: ""
+  database: 0
+  max_retries: 3
+http:
+  port: 8080

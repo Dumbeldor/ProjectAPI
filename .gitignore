@@ -2,3 +2,5 @@ vendor/
 .idea/
 Gopkg.lock
 config.yml
+cmd/userd/user.yml
+cmd/authd/auth.yml

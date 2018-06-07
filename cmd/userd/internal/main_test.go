@@ -49,6 +49,8 @@ func TestMain(m *testing.M) {
 
 	code := m.Run()
 
+	gUserDB.ClearTable()
+
 	os.Exit(code)
 }
 
