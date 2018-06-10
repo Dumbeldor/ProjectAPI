@@ -6,9 +6,12 @@ import (
 	"net/http"
 )
 
-// UserRegister swagger:route POST /v1/message/create message createMessage
+// swagger:route POST /v1/message/create message createMessage
 //
 // Handler to register
+//
+// Security:
+//    jwtToken: read
 //
 // Responses:
 //    200: MessageResponse
@@ -22,7 +25,7 @@ func httpCreateMessage(c echo.Context) error {
 	}
 
 	if err := cmreq.Validate(); err != nil {
-		return app.Error(c, http.StatusNotAcceptable, err.Error())
+		return app.Error(c, http.StatusBadRequest, err.Error())
 	}
 
 	userSess, err := app.ValidateSession(c, sessionReader)
@@ -36,7 +39,7 @@ func httpCreateMessage(c echo.Context) error {
 	}
 
 	if !userExist {
-		return app.Error(c, http.StatusConflict, "The user does not exist.")
+		return app.Error(c, http.StatusBadRequest, "The user does not exist.")
 	}
 
 	err = gUserDB.CreateMessage(cmreq.Message, userSess.UserID, cmreq.NameReceiver)

@@ -16,4 +16,6 @@ const (
 const (
 	dbQueryCreateMessage = `INSERT INTO message(message_id, message, user_sender_id, user_receiver_id)
 		VALUES(uuid_generate_v4(), $1, $2, (SELECT user_id FROM users WHERE login = $3))`
+	dbQueryGetMessagesForUser = `SELECT message_id, message, creation_date, user_sender_id, user_receiver_id
+		FROM message WHERE user_receiver_id = $1`
 )

@@ -32,7 +32,7 @@ func (app *App) ValidateSession(c echo.Context, readerInterface ReaderInterface)
 		}
 		var er easyhttp.ErrorResponse
 		er.Body.Message = "Authorization failed."
-		return nil, easyhttp.WriteJSONError(c, app.Log, http.StatusForbidden, er.Body,
+		return nil, easyhttp.WriteJSONError(c, app.Log, http.StatusUnauthorized, er.Body,
 			errorMsg)
 	}
 

@@ -9,6 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"fmt"
 	"gitlab.com/projetAPI/ProjetAPI/mock"
+	"net/http"
 )
 
 var (
@@ -33,6 +34,35 @@ func createRequestCreateMessage(t *testing.T, messageJ string, token string, cod
 	easyhttp.CheckResponseCode(t, code, rec.Code)
 
 	assert.Equal(t, msg, rec.Body.String())
+}
+
+func TestCreateMessageNotJSON_Validate(t *testing.T) {
+	messageJSON2 := `fdsfd`
+	createRequestCreateMessage(t, messageJSON2, mock.TokenString, http.StatusBadRequest, `{"message":"Request body is not a JSON."}`)
+}
+
+func TestCreateMessageWithoutToken_Validate(t *testing.T) {
+	createRequestCreateMessage(t, messageJSON, "", http.StatusUnauthorized, `{"message":"Authorization failed."}`)
+}
+
+func TestCreateMessageInvalidUser_Validate(t *testing.T) {
+	messageJSON2 := `{"message":"Unit test message", "receiver": "InvalidUser"}`
+	createRequestCreateMessage(t, messageJSON2, mock.TokenString, http.StatusBadRequest, `{"message":"The user does not exist."}`)
+}
+
+func TestCreateMessageWhitoutUser_Validate(t *testing.T) {
+	messageJSON2 := `{"message":"Unit test message", "receiver": ""}`
+	createRequestCreateMessage(t, messageJSON2, mock.TokenString, http.StatusBadRequest, `{"message":"The user does not exist."}`)
+}
+
+func TestCreateMessageWithoutMessage_Validate(t *testing.T) {
+	messageJSON2 := `{"message":"", "receiver": "InvalidUser"}`
+	createRequestCreateMessage(t, messageJSON2, mock.TokenString, http.StatusBadRequest, `{"message":"1 characters is the minimum message length"}`)
+}
+
+func TestCreateMessageWithoutMessage2_Validate(t *testing.T) {
+	messageJSON2 := `{"receiver": "InvalidUser"}`
+	createRequestCreateMessage(t, messageJSON2, mock.TokenString, http.StatusBadRequest, `{"message":"1 characters is the minimum message length"}`)
 }
 
 func TestCreateMessage_Validate(t *testing.T) {
