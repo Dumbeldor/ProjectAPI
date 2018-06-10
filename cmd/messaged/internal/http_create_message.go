@@ -35,11 +35,16 @@ func httpCreateMessage(c echo.Context) error {
 		return app.Error500(c, err)
 	}
 
-	if userExist {
-		return app.Error(c, http.StatusConflict, "")
+	if !userExist {
+		return app.Error(c, http.StatusConflict, "The user does not exist.")
+	}
+
+	err = gUserDB.CreateMessage(cmreq.Message, userSess.UserID, cmreq.NameReceiver)
+	if err != nil {
+		return app.Error500(c, err)
 	}
 
 	var msg easyhttp.MessageResponse
-	msg.Body.Message = "Send successful message."
+	msg.Body.Message = "The sending of the message: "+ cmreq.Message + " to the " + cmreq.NameReceiver + " user has gone well."
 	return c.JSON(http.StatusOK, msg.Body)
 }

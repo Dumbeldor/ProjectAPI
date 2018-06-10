@@ -40,6 +40,11 @@ func TestMain(m *testing.M) {
 		app.Log.Fatalf("Critical server error. Can't connect to user database")
 	}
 
+	gUserDB.ClearTable()
+
+	gUserDB.ExecSql(mock.InsertUserTest)
+	gUserDB.ExecSql(mock.InsertUserTest2)
+
 	createSessionWriter()
 
 	createSessionReader()

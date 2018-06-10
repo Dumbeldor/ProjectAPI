@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	messageJSON = `{"message":"Unit test message", "user_sender_id":"kdjfskfdlkfdl", "user_receiver_id": "fsdkfsdjfsd"}`
+	messageJSON = `{"message":"Unit test message", "receiver": "Vincent"}`
 )
 
 func createRequestCreateMessage(t *testing.T, messageJ string, token string, code int, msg string) {
@@ -36,5 +36,5 @@ func createRequestCreateMessage(t *testing.T, messageJ string, token string, cod
 }
 
 func TestCreateMessage_Validate(t *testing.T) {
-	createRequestCreateMessage(t, messageJSON, mock.TokenString, 200, `{"message":"Send successful message."}`)
+	createRequestCreateMessage(t, messageJSON, mock.TokenString, 200, `{"message":"The sending of the message: Unit test message to the Vincent user has gone well."}`)
 }
