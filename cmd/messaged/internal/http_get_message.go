@@ -1,8 +1,12 @@
 package internal
 
-import "github.com/labstack/echo"
+import (
+	"github.com/labstack/echo"
+	"database/sql"
+	"net/http"
+)
 
-// swagger:route GET /v1/message message getMessage
+// swagger:route GET /v1/message message messageListResponse
 //
 // Returns messages received by the logged-in user
 //
@@ -24,6 +28,17 @@ func httpGetMessage(c echo.Context) error {
 
 	mlr := messageListResponse{}
 
-	mlr.Body.Messages, err := gUserDB.GetMessageForUser(userSess.UserID)
-	
+	mlr.Body.Messages, err = gUserDB.GetMessageForUser(userSess.UserID)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return app.Error(c, http.StatusNoContent, "You have no message !")
+		}
+		return app.Error500(c, err)
+	}
+
+	if mlr.Body.Messages == nil {
+		return app.Error(c, http.StatusNoContent, "You have no message !")
+	}
+
+	return c.JSON(http.StatusOK, mlr.Body)
 }

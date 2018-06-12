@@ -3,6 +3,7 @@ package db
 import (
 	"database/sql"
 	"github.com/op/go-logging"
+	_ "github.com/lib/pq"
 )
 
 type UsersDB struct {
@@ -110,7 +111,30 @@ func (db *UsersDB) EmailExists(email string) (bool, error) {
 	return exists, nil
 }
 
+func (db *UsersDB) GetLogin(userID string) (string, error) {
+	var login string
+
+	err := db.nativeDB.QueryRow(dbQueryGetLogin, userID).Scan(&login)
+
+	if err != nil && err != sql.ErrNoRows {
+		db.log.Errorf("%s", err)
+		return "", err
+	}
+
+	return login, nil
+}
+
 func (db *UsersDB) Register(login string, email string, encodedPassword string, salt1 string, salt2 string) error {
 	_, err := db.nativeDB.Exec(dbQueryRegister, login, email, encodedPassword, salt1, salt2)
+	return err
+}
+
+func (db *UsersDB) UserLock(userID string, lock bool) error {
+	_, err := db.nativeDB.Exec(dbQueryUserLock, userID, lock)
+	return err
+}
+
+func (db *UsersDB) UserDelete(userID string) error {
+	_, err := db.nativeDB.Exec(dbQueryUserDelete, userID)
 	return err
 }

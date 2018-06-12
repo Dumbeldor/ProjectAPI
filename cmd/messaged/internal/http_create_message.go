@@ -6,9 +6,9 @@ import (
 	"net/http"
 )
 
-// swagger:route POST /v1/message/create message createMessage
+// swagger:route POST /v1/message message messageRequest
 //
-// Handler to register
+// Sent a message to a user
 //
 // Security:
 //    jwtToken: read
@@ -19,7 +19,7 @@ import (
 //    409: ErrorResponse
 //    500: ErrorResponse
 func httpCreateMessage(c echo.Context) error {
-	var cmreq createMessageRequest
+	var cmreq messageRequest
 	if !easyhttp.ReadJsonRequest(c.Request().Body, &cmreq) {
 		return app.Error400(c, "Request body is not a JSON.")
 	}

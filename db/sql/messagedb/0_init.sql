@@ -6,3 +6,15 @@ CREATE TABLE message (
     user_receiver_id UUID REFERENCES users(user_id) ON DELETE CASCADE,
     PRIMARY KEY (message_id)
 );
+
+CREATE OR REPLACE FUNCTION message_exists(u UUID) RETURNS BOOLEAN AS $$
+    BEGIN
+        RETURN EXISTS (SELECT 1 FROM message WHERE message_id=u);
+    END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION message_permission(m UUID, u UUID) RETURNS BOOLEAN AS $$
+    BEGIN
+        RETURN EXISTS (SELECT 1 FROM message WHERE message_id=m AND user_sender_id=u);
+    END;
+$$ LANGUAGE plpgsql;

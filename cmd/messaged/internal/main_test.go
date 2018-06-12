@@ -49,7 +49,8 @@ func TestMain(m *testing.M) {
 
 	createSessionReader()
 
-	mock.InsertSession(sessionWriter, app.Log)
+	mock.InsertSession(sessionWriter, app.Log, mock.UserID, mock.TokenString)
+	mock.InsertSession(sessionWriter, app.Log, mock.UserID2, mock.TokenString2)
 
 	code := m.Run()
 

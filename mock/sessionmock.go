@@ -6,9 +6,9 @@ import (
 )
 
 // InsertSession use for mock session reader
-func InsertSession(sessionWriter service.WriterInterface, log *logging.Logger) {
+func InsertSession(sessionWriter service.WriterInterface, log *logging.Logger, userID string, tokenString string) {
 	if sessionWriter == nil {
 		log.Fatal("sessionWriter nil")
 	}
-	sessionWriter.Write(UserID, TokenString)
+	sessionWriter.Write(userID, tokenString)
 }
